@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.*; 
+import java.security.*;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -136,14 +136,16 @@ class TCPClient {
     private static boolean isUserNameWellFormed(String clientName) {
         return clientName.matches("[a-zA-Z][a-zA-Z0-9]*");
     }
-public static int i = 0;
+
+    public static int i = 0;
+
     public static String sig(String text) {
         try {
-            byte[] data = text.getBytes(); 
-             
-            sr.initSign(privateKey); 
+            byte[] data = text.getBytes();
+
+            sr.initSign(privateKey);
             sr.update(data);
-            byte[] bytes = sr.sign(); 
+            byte[] bytes = sr.sign();
             return Base64.getEncoder().encodeToString(bytes);
         }
         catch (SignatureException | InvalidKeyException e) {
@@ -151,7 +153,7 @@ public static int i = 0;
             return "Exception";
         }
     }
-    
+
     public static boolean verifysig(byte[] data, String sign, String publicKey){
         try{
             byte[] bytes = Base64.getDecoder().decode(sign);
@@ -163,10 +165,6 @@ public static int i = 0;
             System.out.println(e);
             return false;
         }
-//        }catch(SignatureException e){
-//            return false;
-//        }
-        
     }
 }
 
@@ -314,7 +312,7 @@ class CLSocketThreadRead implements Runnable {
 //                                    outToServer.writeUTF(fetchKey);
 //                                    outToServer.flush();
                                     String modeKey = inFromServer.readUTF();
-                                    
+
                                     byte[] msgs = decrypt(privateKey, Base64.getDecoder().decode(msgSentence));
                                     if(TCPClient.verifysig(msgs, hashmsg, modeKey)){
                                         System.out.println("everything alright");
@@ -362,5 +360,5 @@ class CLSocketThreadRead implements Runnable {
         byte[] decryptedBytes = cipher.doFinal(inputData);
         return decryptedBytes;
     }
-    
+
 }
