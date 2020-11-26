@@ -1,7 +1,5 @@
 #Chat Application  
---
-compile both compile.java and serverThread.java
---
++ compile both compile.java and serverThread.java
 + on one terminal $ java TCPServer
 + on other terminals $ java TCPClient  
 --  
