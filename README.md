@@ -1,4 +1,4 @@
-#Chat Application  
+# Chat Application  
 - - -
 + compile both compile.java and serverThread.java
 + on one terminal $ java TCPServer
